@@ -1,0 +1,32 @@
+<md-dialog aria-label="Next Days">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Days data</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()">
+                <md-icon md-svg-src="assets/img/close.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-list-item class="md-3-line" ng-repeat="item in tabs">
+            <div class="md-list-item-text">
+                <div layout="row" layout-align="space-between center">
+                    <div>
+                        <h3>Date : {{item.date}}</h3>
+                        <h4> Average Temperature :  {{item.temp}} C</h4>
+                        <p>
+                            Wind Streng : {{item.wind}}
+                        </p>
+                    </div>
+                </div>
+                <md-divider ></md-divider>
+            </div>
+        </md-list-item>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button ng-click="close()">
+            Close
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

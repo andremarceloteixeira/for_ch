@@ -1,0 +1,34 @@
+
+<div layout="column" flex layout-fill ng-cloak>
+    <md-toolbar md-scroll-shrink class="maintoolbar md-primary toolbar-fixed" layout="row" layout-align="space-between center">
+        <div class="md-toolbar-tools grid_0">{{ "HEAD_TITLE_HOME" | translate }}</div>
+    </md-toolbar>
+    <md-progress-linear data-loading md-mode="indeterminate"></md-progress-linear>
+</div>
+<div layout="column" flex layout-fill ng-cloak class="content-margin" >
+    <flash-message duration="5000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
+    <md-content  flex-sm md-theme="primary" >
+        <section >
+            <md-list layout-padding>
+                <md-list-item class="md-3-line" ng-repeat="item in cities">
+                    <div class="md-list-item-text">
+                        <div layout="row" layout-align="space-between center">
+                            <div>
+                                <h3>City Name : {{item.cityName}}</h3>
+                                <h4> Average Temperature :  {{item.averageTemperature}} C</h4>
+                                <p>
+                                    Wind Streng : {{item.windStrength}}
+                                </p>
+                            </div>
+                        </div>
+                        <md-divider ></md-divider>
+                    </div>
+                    <div>
+                      <md-button class="md-primary md-raised" ng-click="showMoreDays($event, item.cityId);">more days</md-button>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </section>
+    </md-content>
+</div>
+

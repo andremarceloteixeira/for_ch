@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appTesting">
+    <head id="head">
+        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-8">
+        <!--Plugins-->
+        <script>
+            var CONFIGURATION = {
+                WEBSERVICE_PATH: "http://api.openweathermap.org/data/2.5/",
+                API_KEY: "69b18809d74f17311fffd6c0973a7396",
+                CITIES: ["London", "Lisbon", "Paris", "Madrid", "Berlin"],
+                ROUTES: {
+                    HOME: {
+                        PATH: "/",
+                        TEMPLATE: "app/views/home.html",
+                        CONTROLLER: "homeController"
+                    }
+                }
+            };
+
+        </script>
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="../bower_components/angular-aria/angular-aria.min.js"></script>
+        <script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+        <script src="../bower_components/angular-route/angular-route.min.js"></script> 
+        <script src="../bower_components/angular-material/angular-material.min.js"></script>
+        <script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
+        <script src="assets/libs/js/angular-flash.min.js"></script> 
+        <script src="assets/libs/js/angular-translate.min.js"></script> 
+
+        <script src="assets/lang/en.js"></script> 
+
+
+        <script src="app/app_config.js"></script>
+        <!--Plugins-->
+        <link rel="stylesheet" type="text/css" ng-href="../bower_components/angular-material/angular-material.min.css">
+        <link rel="stylesheet" type="text/css" ng-href="./assets/css/libs/material-icons.css">
+        <link rel="stylesheet" type="text/css" ng-href="./assets/css/libs/angular-flash.min.css">
+
+
+        <base href="#/">
+
+        <title>{{ "HEAD_TITLE" | translate }}</title>
+        <link rel="icon" type="image/png" ng-href="./assets/img/favicon.png" />
+    </head>
+    <body>
+        <div>
+            <div ng-view></div>
+        </div> 
+        <footer id="footer">
+            <script src="./app/services/service.js"></script>
+            <script src="./app/directives/loading_directive.js"></script>
+            <script src="./app/controllers/home_controller.js"></script>
+            <script src="./app/controllers/more_controller.js"></script>
+        </footer>
+    </body>
+</html>
