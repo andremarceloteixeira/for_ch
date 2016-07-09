@@ -1,0 +1,24 @@
+
+<div layout="column" flex layout-fill ng-cloak>
+    <md-toolbar md-scroll-shrink class="maintoolbar md-primary toolbar-fixed" layout="row" layout-align="space-between center">
+        <div class="md-toolbar-tools grid_0">{{ "HEAD_TITLE_HOME" | translate }}</div>
+    </md-toolbar>
+    <md-progress-linear data-loading md-mode="indeterminate"></md-progress-linear>
+</div>
+<div layout="column" flex layout-fill ng-cloak class="content-margin" >
+    <flash-message duration="5000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
+    <md-content  flex-sm md-theme="primary" >
+        <section>
+            <md-list  ng-cloak="" class="list">
+                <md-subheader class="md-no-sticky">@todo {{todo.id}}</md-subheader>
+                <md-button class="md-warn" href="#/" aria-label="back to @todos list ">
+                    <md-tooltip md-direction="top">
+                        back to @todos list 
+                    </md-tooltip>
+                    <i class="material-icons">&#xE14A;</i>                
+                </md-button>
+                <p>{{ todo.title}}</p>
+                <p>{{ todo.note}}</p> 
+        </section>
+    </md-content>
+</div>

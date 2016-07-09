@@ -1,0 +1,25 @@
+.list md-divider {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+.list md-list {
+  padding-top: 0; }
+
+.list md-list-item > p,
+.list md-list-item > ._md-list-item-inner > p,
+.list md-list-item ._md-list-item-inner > p,
+.list md-list-item ._md-list-item-inner > ._md-list-item-inner > p {
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Likely future */ }
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+*/

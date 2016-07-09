@@ -5,13 +5,27 @@
         <!--Plugins-->
         <script>
             var CONFIGURATION = {
-                WEBSERVICE_PATH: "http://api.openweathermap.org/data/2.5/",
-                API_KEY: "69b18809d74f17311fffd6c0973a7396",
-                CITIES: ["London", "Lisbon", "Paris", "Madrid", "Berlin"],
                 ROUTES: {
                     HOME: {
                         PATH: "/",
                         TEMPLATE: "app/views/home.html",
+                        CONTROLLER: "homeController"
+                    },
+                    ADD :  {
+                        TEMPLATE: "app/views/add.html",
+                        CONTROLLER: "addController"
+                    },
+                    REMOVE :  {
+                        CONTROLLER: "homeController"
+                    },
+                    EDIT: {
+                        PATH: "/todo/:id/edit",
+                        TEMPLATE: "app/views/edit.html",
+                        CONTROLLER: "homeController"
+                    },
+                    PREVIEW :{
+                        PATH: "/todo/:id",
+                        TEMPLATE: "app/views/preview.html",
                         CONTROLLER: "homeController"
                     }
                 }
@@ -35,8 +49,8 @@
         <script src="app/app_config.js"></script>
         <!--Plugins-->
         <link rel="stylesheet" type="text/css" ng-href="../bower_components/angular-material/angular-material.min.css">
-        <link rel="stylesheet" type="text/css" ng-href="./assets/css/libs/material-icons.css">
-        <link rel="stylesheet" type="text/css" ng-href="./assets/css/libs/angular-flash.min.css">
+        <link rel="stylesheet" type="text/css" ng-href="./assets/libs/material-icons.css">
+        <link rel="stylesheet" type="text/css" ng-href="./assets/libs/angular-flash.min.css">
 
 
         <base href="#/">
@@ -49,10 +63,13 @@
             <div ng-view></div>
         </div> 
         <footer id="footer">
-            <script src="./app/services/service.js"></script>
+            <hr/>
+            <p>&copy; Application exercicie 2016</p>
+
+            <script src="./app/factory/storage.js"></script>
             <script src="./app/directives/loading_directive.js"></script>
+            <script src="./app/controllers/add_controller.js"></script>
             <script src="./app/controllers/home_controller.js"></script>
-            <script src="./app/controllers/more_controller.js"></script>
         </footer>
     </body>
 </html>

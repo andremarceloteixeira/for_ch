@@ -1,0 +1,48 @@
+
+<div layout="column" flex layout-fill ng-cloak>
+    <md-toolbar md-scroll-shrink class="maintoolbar md-primary toolbar-fixed" layout="row" layout-align="space-between center">
+        <div class="md-toolbar-tools grid_0">{{ "HEAD_TITLE_HOME" | translate }}</div>
+    </md-toolbar>
+    <md-progress-linear data-loading md-mode="indeterminate"></md-progress-linear>
+</div>
+<div layout="column" flex layout-fill ng-cloak class="content-margin" >
+    <flash-message duration="5000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
+    <md-content  flex-sm md-theme="primary" >
+        <section>
+            <md-list  ng-cloak="" class="list">
+                <md-subheader class="md-no-sticky">@todo edit {{todo.id}}</md-subheader>
+                <md-button class="md-warn" href="#/" aria-label="back to @todos list ">
+                    <md-tooltip md-direction="top">
+                        back to @todos list 
+                    </md-tooltip>
+                    <i class="material-icons">&#xE14A;</i>                
+                </md-button>
+                <div class="container">
+<div class="row">  
+   
+<div class="col-sm-6">
+    <form name="todoForm" ng-submit="submitForm()" novalidate>
+
+        <!-- NAME -->
+        <div class="form-group" ng-class="{ 'has-error' : todoForm.title.$invalid && !todoForm.name.$pristine }">
+            <label>Title</label>
+            <input type="text" name="title" class="form-control" ng-model="todo.title" required>
+            <p ng-show="todoForm.title.$invalid && !todoForm.title.$pristine" class="help-block">You title is required.</p>
+        </div>
+      
+        <div class="form-group" ng-class="{ 'has-error' : todoForm.note.$invalid && !todoForm.note.$pristine }">
+            <label>Note</label>
+            <input type="textarea" name="note" class="form-control" ng-model="todo.note" ng-minlength="3" ng-maxlength="18">
+            <p ng-show="todoForm.note.$error.minlength" class="help-block">note is too short.</p>
+            <p ng-show="todoForm.note.$error.maxlength" class="help-block">note is too long.</p>
+        </div>
+        <md-button type="submit" class="btn btn-primary" ng-disabled="todoForm.$invalid">Submit</md-button>
+        
+    </form>
+  </div>
+  
+    
+</div>
+        </section>
+    </md-content>
+</div>

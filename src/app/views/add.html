@@ -1,0 +1,37 @@
+<md-dialog>
+    <md-toolbar  class="md-primary">
+        <div class="md-toolbar-tools md-primary">
+            <h2 translate>Add New @Todo</h2>
+            <!--<h2 translate="VARIABLE_REPLACEMENT" translate-values="{ name: 'PascalPrecht' }"></h2>-->
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <i class="material-icons">&#xE5CD;</i>            
+            </md-button>
+        </div>
+    </md-toolbar>
+    <flash-message duration="5000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
+    <md-dialog-content style="min-width:500px;height:280px; padding:20px 20px 20px 20px;">
+        <div layout="column">
+             <form name="addNewForm">
+                <div >
+                    <h4>New note</h4>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Title</label>
+                        <input name="titleName" type="text" ng-model="title" ng-class="{true: 'invalid'}[addNewForm.titleName.$error.required && formSubmitted]" ng-required="true">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Note</label>
+                        <input name="noteDescription" type="text" ng-model="note" ng-class="{true: 'invalid'}[addNewForm.noteDescription.$error.required && formSubmitted]" ng-required="true">
+                    </md-input-container>
+            </form>    
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="cancel()">
+           Cancel
+        </md-button>
+        <md-button class="md-primary" ng-click="ok()">
+            Add
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

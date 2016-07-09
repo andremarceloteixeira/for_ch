@@ -1,54 +1,113 @@
 /* 
  * Home Controller.
  */
-appTesting.controller("homeController", function ($scope, $translate, $http, Service, $location, $mdDialog, Flash, $anchorScroll, $route) {
+appTesting.controller("homeController", function ($scope, $translate, $http,
+        DataStorage, $location, $mdDialog, Flash, $anchorScroll, $route, $routeParams, $filter, Flash) {
 
-    $scope.citiesAux = [];
 
-    /**
-     * Get Cities
-     * @returns {Array|home_controller_L4.$scope.citiesAux}
-     */
-    $scope.getCities = function () {
-        var rs = [];
-        angular.forEach(CONFIGURATION.CITIES, function (value) {
-            $scope.getData(value);
-        });
-        return $scope.citiesAux;
-    };
+    $scope.todos = [];
 
-    /*
-     * Get Data
-     * @param {type} name
-     * @returns {undefined}
-     */
-    $scope.getData = function (name) {
+    $scope.todo = false;
+
+
+    //list home view
+    $scope.getData = function () {
         var temp = [];
-        Service.getCityInformationByName(name).then(function (result) {
+            DataStorage.getData().then(function (result) {
+                temp = result;
+            }).finally(function () {
+                $scope.todos = temp;
+            });
+        
+        return $scope.todos;
+    }
+
+    //Exists @todo - preview view
+    $scope.existTodo = function (id, type ) {
+        var idTodo = id !== undefined ? id : $routeParams.id;
+        var operationType = type !== undefined ? true : false;
+        DataStorage.getData().then(function (result) {
             temp = result;
         }).finally(function () {
-            $scope.citiesAux.push(temp);
-        });
-    };
-
-    /**
-     * 
-     * @param {type} ev
-     * @param {type} id
-     * @returns {undefined}
-     */
-    $scope.showMoreDays = function (ev, id) {
-        $mdDialog.show({
-            controller: MorePopUpController,
-            templateUrl: 'app/views/more.html',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose: true,
-            locals: {
-                cityId: id,
+            $scope.todo = $filter('filter')(temp, { id: parseInt(idTodo)}, true)[0];
+            if (!$scope.todo) {
+                var id = Flash.create("danger", "Not fount Todo " + parseInt(idTodo) + " in list");
+                $location.path( "/");
             }
         });
+        if (operationType) {
+            return idTodo;
+        }
+
     };
 
-    $scope.cities = $scope.getCities();
+    $scope.remove = function(ev, idRemoved, type) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+              .title('Remove @todo?')
+              .textContent('Remove this @todo?.')
+              .ariaLabel('Remove')
+              .targetEvent(ev)
+              .ok('Yes')
+              .cancel('No');
+            console.log(idRemoved, "BN");
+              console.log(type, "BM");
+        $mdDialog.show(confirm).then(function() {
+             var removeID = $scope.existTodo(idRemoved, type);
+             var removed = $scope.removeById(removeID);
+             var id = Flash.create("success", "Removed element " + parseInt(removeID) + " in list");
+        }, function() {
+            $mdDialog.cancel();
+        });
+      };
+
+      //remove elements
+      $scope.removeById = function(id) {
+        $scope.todos = $scope.todos.filter(function(item) {
+            return item.id !== id;
+        });
+     }
+
+    //preview
+    if ($routeParams.id) {
+        //verify if exists in data
+        $scope.existTodo();
+    }
+
+        if ($scope.todos.length == 0 ) {
+                $scope.getData();
+
+        }
+
+    $scope.addNew = function (ev) {
+
+        $scope.formSubmitted = false;
+
+        $mdDialog.show({
+            controller: AddController,
+            templateUrl: CONFIGURATION.ROUTES.ADD.TEMPLATE,
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false,
+            locals: {
+                todosList: $scope.todos,
+            }
+        })
+                .then(function (param) {
+                    // ok function
+                    if(param.newElement) {
+                      //set todos
+                      $scope.todos.push(param.newElement);
+                         DataStorage.setData($scope.todos);
+                        var id = Flash.create("success", "added " + JSON.stringify(param.newElement) + " in list");
+                    } else {
+                        var id = Flash.create("danger", "Erro in add element!");
+                    }
+                }, function () {
+                    // cancel function
+                    console.log("cancel");
+                });
+
+    };
+
 });

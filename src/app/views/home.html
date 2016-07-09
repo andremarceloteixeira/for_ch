@@ -1,4 +1,3 @@
-
 <div layout="column" flex layout-fill ng-cloak>
     <md-toolbar md-scroll-shrink class="maintoolbar md-primary toolbar-fixed" layout="row" layout-align="space-between center">
         <div class="md-toolbar-tools grid_0">{{ "HEAD_TITLE_HOME" | translate }}</div>
@@ -8,27 +7,42 @@
 <div layout="column" flex layout-fill ng-cloak class="content-margin" >
     <flash-message duration="5000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
     <md-content  flex-sm md-theme="primary" >
-        <section >
-            <md-list layout-padding>
-                <md-list-item class="md-3-line" ng-repeat="item in cities">
-                    <div class="md-list-item-text">
-                        <div layout="row" layout-align="space-between center">
-                            <div>
-                                <h3>City Name : {{item.cityName}}</h3>
-                                <h4> Average Temperature :  {{item.averageTemperature}} C</h4>
-                                <p>
-                                    Wind Streng : {{item.windStrength}}
-                                </p>
-                            </div>
-                        </div>
-                        <md-divider ></md-divider>
-                    </div>
-                    <div>
-                      <md-button class="md-primary md-raised" ng-click="showMoreDays($event, item.cityId);">more days</md-button>
-                    </div>
+        <section>
+            <md-list  ng-cloak="" class="list">
+                <md-subheader class="md-no-sticky">@list of @todos</md-subheader>
+                <md-button class="md-warn" ng-click="addNew()" aria-label="Add new @todo">
+                    <md-tooltip md-direction="top">
+                        Add new @todo
+                    </md-tooltip>
+                    <i class="material-icons">&#xE05E;</i>
+                </md-button>
+                <hr/>
+                <md-list-item ng-repeat="todo in todos" class="noright">
+                    <p>{{ todo.id}}</p>
+                    <p>{{ todo.title}}</p>
+                    <p>{{ todo.note}}</p> 
+                    <md-button class="md-warn" href="#/todo/{{todo.id}}" aria-label="preview">
+                        <md-tooltip md-direction="top">
+                            Preview
+                        </md-tooltip>
+                        <i class="material-icons">&#xE8A0;</i>                
+                    </md-button>
+                    <md-button class="md-warn" href="#/todo/{{todo.id}}/edit" aria-label="Edit">
+                        <md-tooltip md-direction="top">
+                            Edit
+                        </md-tooltip>
+                        <i class="material-icons">&#xE254;</i>
+                    </md-button>
+                    <md-button class="md-warn" ng-click="remove($event, todo.id, 'remove')" aria-label="Remove">
+                        <md-tooltip md-direction="top">
+                            Remove
+                        </md-tooltip>
+                        <i class="material-icons">&#xE872;</i>                   
+                    </md-button>
                 </md-list-item>
             </md-list>
         </section>
     </md-content>
 </div>
+
 
