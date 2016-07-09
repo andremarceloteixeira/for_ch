@@ -79,6 +79,44 @@ appTesting.controller("homeController", function ($scope, $translate, $http,
 
         }
 
+
+
+    $scope.formSubmitted = false;
+    
+    //validate insert new step
+    $scope.validate = function () {
+        $scope.formSubmitted = false;
+        //first time validation
+        console.log($scope.todo);
+        if ($scope.todo.title == undefined || $scope.todo.note == undefined) {
+                     var message = "Validation error"
+                     var id = Flash.create("danger", message);
+
+                     $scope.formSubmitted = true;
+                return false;
+        }
+        return true;
+    };
+
+
+    $scope.submitForm = function () {
+        // body...
+        if ($scope.validate()) {
+            console.log("AAAA");
+           angular.forEach($scope.todos, function (todo, index) {
+                if (todo.id == parseInt($routeParams.id)) {
+                                console.log("AAAACCC");
+
+                    $scope.todos[index].title = $scope.todo.title;
+                    $scope.todos[index].note = $scope.todo.note;
+                }
+            });
+            var id = Flash.create("success", "Edit element " + parseInt(parseInt($routeParams.id)) + " in list");
+            DataStorage.setData($scope.todos);
+            $location.path( "/");
+        }
+    }
+
     $scope.addNew = function (ev) {
 
         $scope.formSubmitted = false;
