@@ -29,7 +29,8 @@ appTesting.controller("homeController", function ($scope, $translate, $http,
         DataStorage.getData().then(function (result) {
             temp = result;
         }).finally(function () {
-            $scope.todo = $filter('filter')(temp, { id: parseInt(idTodo)}, true)[0];
+            $scope.todo = $filter('filter')($scope.todos, { id: parseInt(idTodo)}, true)[0];
+            console.log($scope.todo);
             if (!$scope.todo) {
                 var id = Flash.create("danger", "Not fount Todo " + parseInt(idTodo) + " in list");
                 $location.path( "/");
@@ -53,9 +54,10 @@ appTesting.controller("homeController", function ($scope, $translate, $http,
             console.log(idRemoved, "BN");
               console.log(type, "BM");
         $mdDialog.show(confirm).then(function() {
-             var removeID = $scope.existTodo(idRemoved, type);
-             var removed = $scope.removeById(removeID);
-             var id = Flash.create("success", "Removed element " + parseInt(removeID) + " in list");
+            $scope.todos = DataStorage.getData();
+             //var removeID = $scope.existTodo(idRemoved, type);
+             var removed = $scope.removeById(idRemoved);
+             var id = Flash.create("success", "Removed element " + parseInt(idRemoved) + " in list");
         }, function() {
             $mdDialog.cancel();
         });
@@ -63,9 +65,7 @@ appTesting.controller("homeController", function ($scope, $translate, $http,
 
       //remove elements
       $scope.removeById = function(id) {
-        $scope.todos = $scope.todos.filter(function(item) {
-            return item.id !== id;
-        });
+        $scope.todos = DataStorage.removeData(id);
      }
 
     //preview
@@ -106,13 +106,14 @@ appTesting.controller("homeController", function ($scope, $translate, $http,
            angular.forEach($scope.todos, function (todo, index) {
                 if (todo.id == parseInt($routeParams.id)) {
                                 console.log("AAAACCC");
+                     var data = DataStorage.editData(index, todo);
+                     $scope.todos = data;
 
-                    $scope.todos[index].title = $scope.todo.title;
-                    $scope.todos[index].note = $scope.todo.note;
                 }
             });
             var id = Flash.create("success", "Edit element " + parseInt(parseInt($routeParams.id)) + " in list");
             DataStorage.setData($scope.todos);
+
             $location.path( "/");
         }
     }
@@ -135,8 +136,9 @@ appTesting.controller("homeController", function ($scope, $translate, $http,
                     // ok function
                     if(param.newElement) {
                       //set todos
-                      $scope.todos.push(param.newElement);
-                         DataStorage.setData($scope.todos);
+                         var data = DataStorage.addData(param.newElement);
+                         DataStorage.setData(data);
+                         $scope.todos = data;
                         var id = Flash.create("success", "added " + JSON.stringify(param.newElement) + " in list");
                     } else {
                         var id = Flash.create("danger", "Erro in add element!");
