@@ -75,7 +75,7 @@ appTesting.controller("homeController", function ($scope, $translate, $http,
     }
 
         if ($scope.todos.length == 0 ) {
-                $scope.getData();
+                $scope.getData(); // remove all problem
 
         }
 

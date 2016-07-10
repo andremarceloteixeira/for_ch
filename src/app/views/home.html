@@ -17,6 +17,7 @@
                     <i class="material-icons">&#xE05E;</i>
                 </md-button>
                 <hr/>
+                <p ng-show="todos.length == 0">No Todos available :(</p>
                 <md-list-item ng-repeat="todo in todos" class="noright">
                     <p>{{ todo.id}}</p>
                     <p>{{ todo.title}}</p>
