@@ -5,6 +5,7 @@ var appTesting = angular.module("appTesting", ["ngMaterial", "ngRoute",
     "ngMessages", "ngCookies", "ngFlash", "pascalprecht.translate"]);
 
 var LANG_EN = "en";
+var firstCall = false;
 
 appTesting.config(function ($routeProvider, $locationProvider, $mdThemingProvider, $mdIconProvider, $translateProvider) {
     $routeProvider

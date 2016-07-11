@@ -4,20 +4,20 @@ function AddController($scope, $mdDialog, $http, $q, Flash, $translate, $filter,
     $scope.title;
     $scope.note;
     $scope.formSubmitted = false;
-    
+
     //validate insert new step
     $scope.validate = function () {
         $scope.formSubmitted = false;
         //first time validation
         if ($scope.title == undefined || $scope.note == undefined) {
-                     var message = "Validation error"
-                     var id = Flash.create("danger", message);
+            var message = "Validation error"
+            var id = Flash.create("danger", message);
 
-                     $scope.formSubmitted = true;
-                return false;
-            }
-            $scope.titleS = $scope.title;
-            $scope.noteS = $scope.note;
+            $scope.formSubmitted = true;
+            return false;
+        }
+        $scope.titleS = $scope.title;
+        $scope.noteS = $scope.note;
 
         return true;
     };
@@ -36,11 +36,11 @@ function AddController($scope, $mdDialog, $http, $q, Flash, $translate, $filter,
     $scope.ok = function () {
         if ($scope.validate()) {
             var elementForPush = {
-                    id: $scope.idSequenceNext(),
-                    title: $scope.titleS,
-                    note : $scope.noteS
+                id: $scope.idSequenceNext(),
+                title: $scope.titleS,
+                note: $scope.noteS
             };
-            var result = {newElement : elementForPush}
+            var result = {newElement: elementForPush}
             $mdDialog.hide(result);
         }
     };
